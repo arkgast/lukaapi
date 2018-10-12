@@ -1,6 +1,7 @@
 const DataLoader = require('dataloader')
 const Person = require('./person/person.model')
 const Company = require('./company/company.model')
+const Product = require('./product/product.model')
 const _ = require('lodash')
 
 const createPersonLoader = () => {
@@ -27,9 +28,22 @@ const createCompanyLoader = () => {
   })
 }
 
+const createProductLoader = () => {
+  return new DataLoader(productIds => {
+    return Product.find({ _id: { $in: productIds } })
+      .exec()
+      .then(products => {
+        console.log('product loader batch', productIds.length)
+        const productsById = _.keyBy(products, '_id')
+        return productIds.map(productId => productsById[productId])
+      })
+  })
+}
+
 module.exports = () => {
   return {
     person: createPersonLoader(),
-    company: createCompanyLoader()
+    company: createCompanyLoader(),
+    product: createProductLoader()
   }
 }

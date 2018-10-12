@@ -1,0 +1,26 @@
+type Product {
+  handle: String
+  source: String!
+  detail: String!
+  signer: String!
+  location: Location
+  labels: Labels
+}
+
+input ProductInput {
+  handle: String
+  source: String!
+  detail: String!
+  signer: String!
+  location: LocationInput
+  labels: LabelsInput
+}
+
+extend type Query {
+  product(handle: String!): Product
+  products(countryCode: String!): [Product]!
+}
+
+extend type Mutation {
+  createProduct(input: ProductInput!): Product!
+}
