@@ -8,7 +8,9 @@ const commonFieldAttrs = {
 const productSchema = new mongoose.Schema({
   handle: commonFieldAttrs,
   source: {
-    ...commonFieldAttrs,
+    type: String,
+    trime: true,
+    index: true,
     require: true
   },
   detail: {

@@ -16,5 +16,11 @@ module.exports = {
     createCompany (_, args, ctx) {
       return ctx.models.company.create(args.input)
     }
+  },
+  Company: {
+    products (company, _, ctx) {
+      return ctx.models.product
+        .find({ source: company.handle })
+    }
   }
 }

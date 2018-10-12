@@ -3,8 +3,10 @@ type Company {
   detail: String
   facebook: String
   createdAt: String
+  updatedAt: String
   location: Location
   labels: Labels
+  products: [Product]
 }
 
 input CompanyInput {

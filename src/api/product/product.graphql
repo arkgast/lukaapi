@@ -1,6 +1,6 @@
 type Product {
   handle: String
-  source: String!
+  source: Company!
   detail: String!
   signer: String!
   createdAt: String

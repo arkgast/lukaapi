@@ -16,5 +16,12 @@ module.exports = {
     createProduct (_, args, ctx) {
       return ctx.models.product.create(args.input)
     }
+  },
+  Product: {
+    source (product, _, ctx) {
+      return ctx.models.company
+        .findById(product.source)
+        .exec()
+    }
   }
 }
