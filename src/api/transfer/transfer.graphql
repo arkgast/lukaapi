@@ -1,0 +1,20 @@
+type Transfer {
+  handle: ID
+  source: Person
+  target: Product
+  amount: Int
+  symbol: String
+  labels: Labels
+}
+
+input TransferInput {
+  source: ID
+  target: ID
+  amount: Int
+  symbol: String
+  labels: LabelsInput
+}
+
+extend type Mutation {
+  createTransfer(input: TransferInput!): Transfer!
+}

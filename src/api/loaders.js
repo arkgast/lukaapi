@@ -62,12 +62,24 @@ const createContractLoader = () => {
   })
 }
 
+const createTransferLoader = () => {
+  return new DataLoader(transferIds => {
+    return Contract.find({ _id: { $in: transferIds } })
+      .exec()
+      .then(tranfers => {
+        const transfersById = _.keyBy(tranfers, '_id')
+        return transferIds.map(transferId => transfersById[transferId])
+      })
+  })
+}
+
 module.exports = () => {
   return {
     contract: createContractLoader(),
     company: createCompanyLoader(),
     payment: createPaymentLoader(),
     person: createPersonLoader(),
-    product: createProductLoader()
+    product: createProductLoader(),
+    transfer: createTransferLoader()
   }
 }

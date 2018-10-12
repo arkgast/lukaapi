@@ -6,6 +6,7 @@ const company = require('./company')
 const payment = require('./payment')
 const person = require('./person')
 const product = require('./product')
+const transfer = require('./transfer')
 const loaders = require('./loaders')
 
 module.exports = {
@@ -15,14 +16,16 @@ module.exports = {
     company.typeDefs,
     payment.typeDefs,
     person.typeDefs,
-    product.typeDefs
+    product.typeDefs,
+    transfer.typeDefs
   ].join(' '),
   resolvers: merge({},
     contract.resolvers,
     company.resolvers,
     payment.resolvers,
     person.resolvers,
-    product.resolvers
+    product.resolvers,
+    transfer.resolvers
   ),
   context: {
     models: {
@@ -30,7 +33,8 @@ module.exports = {
       company: company.model,
       person: person.model,
       payment: payment.model,
-      product: product.model
+      product: product.model,
+      transfer: transfer.model
     },
     loaders: loaders()
   }
