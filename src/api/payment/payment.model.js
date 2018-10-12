@@ -9,7 +9,6 @@ const paymentSchema = mongoose.Schema({
   handle: {
     type: mongoose.Schema.Types.ObjectId,
     index: true,
-    unique: true,
     auto: true
   },
   source: commontFieldAttrs,

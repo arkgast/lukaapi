@@ -1,6 +1,6 @@
 type Contract {
   handle: ID
-  souce: Person
+  source: Person
   target: Product
   amount: Int
   symbol: String
@@ -9,8 +9,8 @@ type Contract {
 }
 
 input ContractInput {
-  souce: ID
-  target: ID
+  source: String!
+  target: String!
   amount: Int
   symbol: String
   nature: String

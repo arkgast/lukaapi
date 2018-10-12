@@ -11,5 +11,17 @@ module.exports = {
     createContract (_, args, ctx) {
       return ctx.models.contract.create(args.input)
     }
+  },
+  Contract: {
+    source (contract, _, ctx) {
+      return ctx.models.person
+        .findOne({ handle: contract.source })
+        .exec()
+    },
+    target (contract, _, ctx) {
+      return ctx.models.product
+        .findOne({ handle: contract.target })
+        .exec()
+    }
   }
 }

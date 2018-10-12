@@ -1,5 +1,5 @@
 type Payment {
-  handle: String
+  handle: ID
   source: Person
   target: Product
   amount: Int
@@ -10,7 +10,6 @@ type Payment {
 }
 
 input PaymentInput {
-  handle: String
   source: String
   target: String
   amount: Int

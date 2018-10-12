@@ -33,6 +33,5 @@ module.exports = {
         .findOne({ handle: payment.target })
         .exec()
     }
-
   }
 }

@@ -8,10 +8,17 @@ const commonFieldAttrs = {
 const contractSchema = new mongoose.Schema({
   handle: {
     type: mongoose.Schema.Types.ObjectId,
+    index: true,
     auto: true
   },
-  source: commonFieldAttrs,
-  target: commonFieldAttrs,
+  source: {
+    ...commonFieldAttrs,
+    required: true
+  },
+  target: {
+    ...commonFieldAttrs,
+    required: true
+  },
   amount: {
     type: Number,
     default: 1000
