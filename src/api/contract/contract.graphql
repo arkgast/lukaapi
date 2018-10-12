@@ -1,0 +1,26 @@
+type Contract {
+  handle: ID
+  souce: Person
+  target: Product
+  amount: Int
+  symbol: String
+  nature: String
+  labels: Labels
+}
+
+input ContractInput {
+  souce: ID
+  target: ID
+  amount: Int
+  symbol: String
+  nature: String
+  labels: LabelsInput
+}
+
+extend type Query {
+  contract(handle: ID!): Contract!
+}
+
+extend type Mutation {
+  createContract(input: ContractInput!): Contract!
+}

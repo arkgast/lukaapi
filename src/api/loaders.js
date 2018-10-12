@@ -1,4 +1,6 @@
 const DataLoader = require('dataloader')
+
+const Contract = require('./contract/contract.model')
 const Company = require('./company/company.model')
 const Payment = require('./payment/payment.model')
 const Person = require('./person/person.model')
@@ -49,8 +51,20 @@ const createPaymentLoader = () => {
   })
 }
 
+const createContractLoader = () => {
+  return new DataLoader(contractIds => {
+    return Contract.find({ _id: { $in: contractIds } })
+      .exec()
+      .then(contracts => {
+        const contractsById = _.keyBy(contracts, '_id')
+        return contractIds.map(contractId => contractsById[contractId])
+      })
+  })
+}
+
 module.exports = () => {
   return {
+    contract: createContractLoader(),
     company: createCompanyLoader(),
     payment: createPaymentLoader(),
     person: createPersonLoader(),
