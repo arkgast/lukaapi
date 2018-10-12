@@ -1,0 +1,57 @@
+type Location {
+  street: String
+  city: String
+  zip: String
+  country: String
+  countryCode: String
+}
+
+input LocationInput {
+  street: String
+  city: String
+  zip: String
+  country: String
+  countryCode: String
+}
+
+type Labels {
+  firstLabel: String
+  secondLabel: String
+}
+
+input LabelsInput {
+  firstLabel: String
+  secondLabel: String
+}
+
+type Person {
+  handle: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  email: String
+  facebook: String
+  location: Location
+  labels: Labels
+}
+
+input PersonInput {
+  handle: String!
+  firstName: String!
+  lastName: String!
+  phone: String
+  email: String
+  facebook: String
+  location: LocationInput
+  labels: LabelsInput
+}
+
+type Query {
+  person(phone: String!): Person!
+  people: [Person]!
+}
+
+type Mutation {
+  createPerson(input: PersonInput!): Person!
+  updatePerson(phone: String!, input: PersonInput!): Person!
+}
