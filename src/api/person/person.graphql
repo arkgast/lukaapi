@@ -1,29 +1,3 @@
-type Location {
-  street: String
-  city: String
-  zip: String
-  country: String
-  countryCode: String
-}
-
-input LocationInput {
-  street: String
-  city: String
-  zip: String
-  country: String
-  countryCode: String
-}
-
-type Labels {
-  firstLabel: String
-  secondLabel: String
-}
-
-input LabelsInput {
-  firstLabel: String
-  secondLabel: String
-}
-
 type Person {
   handle: String!
   firstName: String!

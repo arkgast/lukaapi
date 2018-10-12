@@ -1,0 +1,24 @@
+type Company {
+  handle: String!
+  detail: String
+  facebook: String
+  location: Location
+  labels: Labels
+}
+
+input CompanyInput {
+  handle: String!
+  detail: String
+  facebook: String
+  location: LocationInput
+  labels: LabelsInput
+}
+
+extend type Query {
+  company(handle: String!): Company
+  companies: [Company]!
+}
+
+extend type Mutation {
+  createCompany(input: CompanyInput!): Company!
+}
