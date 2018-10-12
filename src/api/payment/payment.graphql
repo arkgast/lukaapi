@@ -1,0 +1,30 @@
+type Payment {
+  handle: String
+  source: String
+  target: String
+  amount: Int
+  symbol: String
+  expiry: String
+  status: String
+  labels: Labels
+}
+
+input PaymentInput {
+  handle: String
+  source: String
+  target: String
+  amount: Int
+  symbol: String
+  expiry: String
+  status: String
+  labels: LabelsInput
+}
+
+extend type Query {
+  payment(handle: String!): Payment!
+}
+
+extend type Mutation {
+  createPayment(input: PaymentInput!): Payment!
+  updatePayment(handle: String!, input: PaymentInput!): Payment!
+}
