@@ -16,6 +16,8 @@ const personSchema = new mongoose.Schema({
   },
   handle: {
     ...commonFieldAttrs,
+    index: true,
+    unique: true,
     required: true
   },
   phone: commonFieldAttrs,
@@ -26,7 +28,10 @@ const personSchema = new mongoose.Schema({
     city: commonFieldAttrs,
     zip: commonFieldAttrs,
     country: commonFieldAttrs,
-    countryCode: commonFieldAttrs
+    countryCode: {
+      ...commonFieldAttrs,
+      index: true
+    }
   },
   labels: {
     firstLabel: commonFieldAttrs,

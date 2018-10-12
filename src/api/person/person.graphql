@@ -6,6 +6,7 @@ type Person {
   email: String
   facebook: String
   createdAt: String
+  updatedAt: String
   location: Location
   labels: Labels
 }
@@ -21,6 +22,16 @@ input PersonInput {
   labels: LabelsInput
 }
 
+input UpdatePersonInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  facebook: String
+  location: LocationInput
+  labels: LabelsInput
+}
+
 type Query {
   person(phone: String!): Person!
   people(countryCode: String!): [Person]!
@@ -28,5 +39,5 @@ type Query {
 
 type Mutation {
   createPerson(input: PersonInput!): Person!
-  updatePerson(phone: String!, input: PersonInput!): Person!
+  updatePerson(handle: String!, input: UpdatePersonInput!): Person!
 }

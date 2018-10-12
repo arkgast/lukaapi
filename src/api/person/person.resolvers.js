@@ -1,6 +1,6 @@
 module.exports = {
   Query: {
-    async person (_, args, ctx, info) {
+    async person (_, args, ctx) {
       const person = await ctx.models.person
         .findOne({ phone: args.phone })
         .exec()
@@ -17,12 +17,12 @@ module.exports = {
       return ctx.models.person.create(args.input)
     },
     async updatePerson (_, args, ctx) {
-      const { phone, input } = args
+      const { handle, input } = args
       await ctx.models.person
-        .updateOne({ phone }, { ...input })
+        .updateOne({ handle }, input)
 
       const person = ctx.models.person
-        .findOne({ phone: input.phone || phone })
+        .findOne({ handle })
 
       return person
     }
