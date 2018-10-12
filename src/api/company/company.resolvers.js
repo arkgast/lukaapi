@@ -6,9 +6,9 @@ module.exports = {
         .exec()
       return company
     },
-    companies (_, __, ctx) {
+    companies (_, args, ctx) {
       return ctx.models.company
-        .find({})
+        .find({ 'location.countryCode': args.countryCode })
         .exec()
     }
   },

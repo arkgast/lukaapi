@@ -8,7 +8,7 @@ module.exports = {
     },
     products (_, args, ctx) {
       return ctx.models.product
-        .find({ location: { countryCode: args.countryCode } })
+        .find({ 'location.countryCode': args.countryCode })
         .exec()
     }
   },

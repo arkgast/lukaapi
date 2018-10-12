@@ -3,6 +3,7 @@ type Product {
   source: String!
   detail: String!
   signer: String!
+  createdAt: String
   location: Location
   labels: Labels
 }

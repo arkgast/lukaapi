@@ -2,6 +2,7 @@ type Company {
   handle: String!
   detail: String
   facebook: String
+  createdAt: String
   location: Location
   labels: Labels
 }
@@ -15,8 +16,8 @@ input CompanyInput {
 }
 
 extend type Query {
-  company(handle: String!): Company
-  companies: [Company]!
+  company(handle: String!): Company!
+  companies(countryCode: String!): [Company]!
 }
 
 extend type Mutation {

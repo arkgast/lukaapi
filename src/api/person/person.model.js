@@ -8,7 +8,7 @@ const commonFieldAttrs = {
 const personSchema = new mongoose.Schema({
   firstName: {
     ...commonFieldAttrs,
-    require: true
+    required: true
   },
   lastName: {
     ...commonFieldAttrs,
@@ -26,7 +26,7 @@ const personSchema = new mongoose.Schema({
     city: commonFieldAttrs,
     zip: commonFieldAttrs,
     country: commonFieldAttrs,
-    contryCode: commonFieldAttrs
+    countryCode: commonFieldAttrs
   },
   labels: {
     firstLabel: commonFieldAttrs,

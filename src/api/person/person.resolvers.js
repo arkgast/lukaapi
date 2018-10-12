@@ -6,9 +6,9 @@ module.exports = {
         .exec()
       return person
     },
-    people (_, __, ctx) {
+    people (_, args, ctx) {
       return ctx.models.person
-        .find({})
+        .find({ 'location.countryCode': args.countryCode })
         .exec()
     }
   },

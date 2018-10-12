@@ -5,6 +5,7 @@ type Person {
   phone: String
   email: String
   facebook: String
+  createdAt: String
   location: Location
   labels: Labels
 }
@@ -22,7 +23,7 @@ input PersonInput {
 
 type Query {
   person(phone: String!): Person!
-  people: [Person]!
+  people(countryCode: String!): [Person]!
 }
 
 type Mutation {
