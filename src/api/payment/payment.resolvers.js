@@ -21,5 +21,18 @@ module.exports = {
 
       return payment
     }
+  },
+  Payment: {
+    source (payment, _, ctx) {
+      return ctx.models.person
+        .findOne({ handle: payment.source })
+        .exec()
+    },
+    target (payment, _, ctx) {
+      return ctx.models.product
+        .findOne({ handle: payment.target })
+        .exec()
+    }
+
   }
 }

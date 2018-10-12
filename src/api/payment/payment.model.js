@@ -6,10 +6,15 @@ const commontFieldAttrs = {
 }
 
 const paymentSchema = mongoose.Schema({
-  handle: commontFieldAttrs,
+  handle: {
+    type: mongoose.Schema.Types.ObjectId,
+    index: true,
+    unique: true,
+    auto: true
+  },
   source: commontFieldAttrs,
   target: commontFieldAttrs,
-  amount: commontFieldAttrs,
+  amount: Number,
   symbol: commontFieldAttrs,
   expiry: commontFieldAttrs,
   status: commontFieldAttrs,

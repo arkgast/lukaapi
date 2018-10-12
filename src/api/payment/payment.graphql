@@ -1,7 +1,7 @@
 type Payment {
   handle: String
-  source: String
-  target: String
+  source: Person
+  target: Product
   amount: Int
   symbol: String
   expiry: String

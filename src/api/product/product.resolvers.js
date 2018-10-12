@@ -20,7 +20,7 @@ module.exports = {
   Product: {
     source (product, _, ctx) {
       return ctx.models.company
-        .findById(product.source)
+        .findOne({ handle: product.source })
         .exec()
     }
   }
