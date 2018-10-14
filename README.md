@@ -4,18 +4,27 @@
 Build with the next stack
 
   * graphql
-  * mongo
+  * firestore
 
 ## Requirements
 
-The easiest way to install mongo is with docker
+  * Generate and download a private key for **Firebase Admin SDK**
+  * Place the file in the project root
 
-    $ docker run -p 27017:27017 -d mongo
+Then you folder structure should look like this
+```
+.
+├── package.json
+├── README.md
+├── serviceAccountKey.json
+└── /src
+```
 
 ## How to use
 
     $ git clone https://github.com/arkgast/lukaapi
     $ cd lukaapi
+    $ git checkout firebase
     $ npm install
     $ npm start
 
