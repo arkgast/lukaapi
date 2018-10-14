@@ -1,37 +1,51 @@
 module.exports = {
   Query: {
-    async payment (_, args, ctx) {
-      const payment = await ctx.models.payment
-        .findOne({ handle: args.handle })
-        .exec()
-      return payment
+    payment (_, args, ctx) {
+      return ctx.collections
+        .payment
+        .findOne([{
+          field: 'handle',
+          operator: '==',
+          value: args.handle
+        }])
     }
   },
   Mutation: {
     createPayment (_, args, ctx) {
-      return ctx.models.payment.create(args.input)
+      return ctx.collections
+        .payment
+        .create(args.input)
     },
-    async updatePayment (_, args, ctx) {
-      const { handle, input } = args
-      await ctx.models.payment
-        .updateOne({ handle }, input)
-
-      const payment = ctx.models.payment
-        .findOne({ handle })
-
-      return payment
+    updatePayment (_, args, ctx) {
+      return ctx.collections
+        .payment
+        .updateOne([
+          {
+            field: 'handle',
+            operator: '==',
+            value: args.handle
+          }
+        ], args.input)
     }
   },
   Payment: {
     source (payment, _, ctx) {
-      return ctx.models.person
-        .findOne({ handle: payment.source })
-        .exec()
+      return ctx.collections
+        .person
+        .findOne([{
+          field: 'handle',
+          operator: '==',
+          value: payment.source
+        }])
     },
     target (payment, _, ctx) {
-      return ctx.models.product
-        .findOne({ handle: payment.target })
-        .exec()
+      return ctx.collections
+        .product
+        .findOne([{
+          field: 'handle',
+          operator: '==',
+          value: payment.target
+        }])
     }
   }
 }

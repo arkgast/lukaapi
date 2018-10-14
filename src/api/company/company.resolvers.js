@@ -1,8 +1,7 @@
 module.exports = {
   Query: {
     company (_, args, ctx) {
-      return ctx
-        .collections
+      return ctx.collections
         .company
         .findOne([{
           field: 'handle',
@@ -11,8 +10,7 @@ module.exports = {
         }])
     },
     companies (_, args, ctx) {
-      return ctx
-        .collections
+      return ctx.collections
         .company
         .find([{
           field: 'location.countryCode',
@@ -23,16 +21,14 @@ module.exports = {
   },
   Mutation: {
     createCompany (_, args, ctx) {
-      return ctx
-        .collections
+      return ctx.collections
         .company
         .create(args.input)
     }
   },
   Company: {
     products (company, _, ctx) {
-      return ctx
-        .collections
+      return ctx.collections
         .product
         .find([{
           field: 'source',

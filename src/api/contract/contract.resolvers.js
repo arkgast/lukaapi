@@ -1,27 +1,41 @@
 module.exports = {
   Query: {
-    async contract (_, args, ctx, info) {
-      const contract = await ctx.models.contract
-        .findOne({ handle: args.handle })
-        .exec()
+    contract (_, args, ctx, info) {
+      const contract = ctx.collections
+        .contract
+        .findOne([{
+          field: 'handle',
+          operator: '==',
+          value: args.handle
+        }])
       return contract
     }
   },
   Mutation: {
     createContract (_, args, ctx) {
-      return ctx.models.contract.create(args.input)
+      return ctx.collections
+        .contract
+        .create(args.input)
     }
   },
   Contract: {
     source (contract, _, ctx) {
-      return ctx.models.person
-        .findOne({ handle: contract.source })
-        .exec()
+      return ctx.collections
+        .person
+        .findOne([{
+          field: 'handle',
+          operator: '==',
+          value: contract.source
+        }])
     },
     target (contract, _, ctx) {
-      return ctx.models.product
-        .findOne({ handle: contract.target })
-        .exec()
+      return ctx.collections
+        .product
+        .findOne([{
+          field: 'handle',
+          operator: '==',
+          value: contract.target
+        }])
     }
   }
 }

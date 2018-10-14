@@ -1,19 +1,21 @@
 module.exports = {
   Mutation: {
     createTransfer (_, args, ctx) {
-      return ctx.models.transfer.create(args.input)
+      return ctx.collections
+        .transfer
+        .create(args.input)
     }
   },
   Transfer: {
     source (transfer, _, ctx) {
-      return ctx.models.person
+      return ctx.collections
+        .person
         .findById(transfer.source)
-        .exec()
     },
     target (transfer, _, ctx) {
-      return ctx.models.product
+      return ctx.collections
+        .product
         .findById(transfer.target)
-        .exec()
     }
   }
 }
