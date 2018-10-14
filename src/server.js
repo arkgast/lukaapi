@@ -1,4 +1,6 @@
 const { GraphQLServer } = require('graphql-yoga')
+
+require('./db')
 const gqlServerConfig = require('./api')
 
 const serverOptions = {

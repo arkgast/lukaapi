@@ -1,10 +1,11 @@
-const mongoose = require('mongoose')
+const admin = require('firebase-admin')
 
-mongoose.set('useCreateIndex', true)
-const connectToDB = (url = 'mongodb://localhost/luka') => {
-  return mongoose.connect(url, {
-    useNewUrlParser: true
+const serviceAccount = require('../serviceAccountKey.json')
+const settings = { timestampsInSnapshots: true }
+
+admin
+  .initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: 'https://luka-api.firebaseio.com'
   })
-}
-
-module.exports = connectToDB
+  .firestore().settings(settings)
