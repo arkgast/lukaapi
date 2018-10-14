@@ -1,26 +1,69 @@
 module.exports = {
   Query: {
-    async company (_, args, ctx, info) {
-      const company = await ctx.models.company
-        .findOne({ handle: args.handle })
-        .exec()
+    async company (_, args, ctx) {
+      const companyData = await ctx
+        .collections
+        .company
+        .where('handle', '==', args.handle)
+        .get()
+
+      let company = null
+      companyData.docs.forEach(snapshot => {
+        company = {
+          ...snapshot.data(),
+          createdAt: snapshot.createTime.toDate(),
+          updatedAt: snapshot.updateTime.toDate()
+        }
+      })
       return company
     },
-    companies (_, args, ctx) {
-      return ctx.models.company
-        .find({ 'location.countryCode': args.countryCode })
-        .exec()
+    async companies (_, args, ctx) {
+      const companiesData = await ctx
+        .collections
+        .company
+        .where('location.countryCode', '==', args.countryCode)
+        .get()
+
+      return companiesData.docs.map(company => ({
+        ...company.data(),
+        createdAt: company.createTime.toDate(),
+        updatedAt: company.updateTime.toDate()
+      }))
     }
   },
   Mutation: {
-    createCompany (_, args, ctx) {
-      return ctx.models.company.create(args.input)
+    async createCompany (_, args, ctx) {
+      const ref = await ctx
+        .collections
+        .company
+        .add(args.input)
+
+      const company = await ctx
+        .collections
+        .company
+        .doc(ref.id)
+        .get()
+
+      return {
+        ...company.data(),
+        createdAt: company.createTime.toDate(),
+        updatedAt: company.updateTime.toDate()
+      }
     }
   },
   Company: {
-    products (company, _, ctx) {
-      return ctx.models.product
-        .find({ source: company.handle })
+    async products (company, _, ctx) {
+      const productsData = await ctx
+        .collections
+        .product
+        .where('source', '==', company.handle)
+        .get()
+
+      return productsData.docs.map(product => ({
+        ...product.data(),
+        createdAt: company.createTime.toDate(),
+        updatedAt: company.updateTime.toDate()
+      }))
     }
   }
 }

@@ -1,3 +1,10 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionId": "companies",
+      "fields": [
+        { "fieldPath": "handle", "mode": "ASCENDING" }
+      ]
+    }
+  ]
 }

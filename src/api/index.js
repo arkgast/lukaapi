@@ -1,3 +1,4 @@
+const admin = require('firebase-admin')
 const merge = require('lodash/merge')
 
 const common = require('./common')
@@ -7,6 +8,8 @@ const payment = require('./payment')
 const person = require('./person')
 const product = require('./product')
 const transfer = require('./transfer')
+
+const firestore = admin.firestore()
 
 module.exports = {
   typeDefs: [
@@ -25,5 +28,15 @@ module.exports = {
     person.resolvers,
     product.resolvers,
     transfer.resolvers
-  )
+  ),
+  context: {
+    collections: {
+      contract: firestore.collection('contracts'),
+      company: firestore.collection('companies'),
+      person: firestore.collection('people'),
+      payment: firestore.collection('payments'),
+      product: firestore.collection('products'),
+      transfer: firestore.collection('transfers')
+    }
+  }
 }
