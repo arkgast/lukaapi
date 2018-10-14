@@ -2,11 +2,11 @@ const admin = require('firebase-admin')
 
 const firestore = admin.firestore()
 
-const getData = async (collection, filters) => {
+const getData = async (queryRef, filters) => {
   filters.forEach(filter => {
-    collection = collection.where(filter.field, filter.operator, 'yambal_bo')
+    queryRef = queryRef.where(filter.field, filter.operator, filter.value)
   })
-  return collection.get()
+  return queryRef.get()
 }
 
 module.exports = (collectionName) => {
@@ -17,6 +17,15 @@ module.exports = (collectionName) => {
       const ref = await collection.add(collectionInformation)
       return this.findById(ref.id)
     },
+    async updateOne (filters, collectionInformation) {
+      const obj = await this.findOne(filters)
+
+      await collection
+        .doc(obj.id)
+        .update(collectionInformation)
+
+      return this.findById(obj.id)
+    },
     async findById (id) {
       const snapshot = await collection
         .doc(id)
@@ -24,6 +33,7 @@ module.exports = (collectionName) => {
 
       return {
         ...snapshot.data(),
+        id,
         createdAt: snapshot.createTime.toDate(),
         updatedAt: snapshot.updateTime.toDate()
       }
@@ -35,6 +45,7 @@ module.exports = (collectionName) => {
       data.docs.forEach(snapshot => {
         company = {
           ...snapshot.data(),
+          id: snapshot.id,
           createdAt: snapshot.createTime.toDate(),
           updatedAt: snapshot.updateTime.toDate()
         }
@@ -47,6 +58,7 @@ module.exports = (collectionName) => {
 
       return data.docs.map(snapshot => ({
         ...snapshot.data(),
+        id: snapshot.id,
         createdAt: snapshot.createTime.toDate(),
         updatedAt: snapshot.updateTime.toDate()
       }))
