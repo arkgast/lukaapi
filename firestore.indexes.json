@@ -5,6 +5,16 @@
       "fields": [
         { "fieldPath": "handle", "mode": "ASCENDING" }
       ]
+    }, {
+      "collectionId": "companies",
+      "fields": [
+        { "fieldPath": "location.countryCode", "mode": "ASCENDING" }
+      ]
+    }, {
+      "collectionId": "products",
+      "fields": [
+        { "fieldPath": "source", "mode": "ASCENDING" }
+      ]
     }
   ]
 }

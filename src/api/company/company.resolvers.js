@@ -1,69 +1,44 @@
 module.exports = {
   Query: {
-    async company (_, args, ctx) {
-      const companyData = await ctx
+    company (_, args, ctx) {
+      return ctx
         .collections
         .company
-        .where('handle', '==', args.handle)
-        .get()
-
-      let company = null
-      companyData.docs.forEach(snapshot => {
-        company = {
-          ...snapshot.data(),
-          createdAt: snapshot.createTime.toDate(),
-          updatedAt: snapshot.updateTime.toDate()
-        }
-      })
-      return company
+        .findOne([{
+          field: 'handle',
+          operator: '==',
+          value: args.handle
+        }])
     },
-    async companies (_, args, ctx) {
-      const companiesData = await ctx
+    companies (_, args, ctx) {
+      return ctx
         .collections
         .company
-        .where('location.countryCode', '==', args.countryCode)
-        .get()
-
-      return companiesData.docs.map(company => ({
-        ...company.data(),
-        createdAt: company.createTime.toDate(),
-        updatedAt: company.updateTime.toDate()
-      }))
+        .find([{
+          field: 'location.countryCode',
+          operator: '==',
+          value: args.countryCode
+        }])
     }
   },
   Mutation: {
-    async createCompany (_, args, ctx) {
-      const ref = await ctx
+    createCompany (_, args, ctx) {
+      return ctx
         .collections
         .company
-        .add(args.input)
-
-      const company = await ctx
-        .collections
-        .company
-        .doc(ref.id)
-        .get()
-
-      return {
-        ...company.data(),
-        createdAt: company.createTime.toDate(),
-        updatedAt: company.updateTime.toDate()
-      }
+        .create(args.input)
     }
   },
   Company: {
-    async products (company, _, ctx) {
-      const productsData = await ctx
+    products (company, _, ctx) {
+      return ctx
         .collections
         .product
-        .where('source', '==', company.handle)
-        .get()
-
-      return productsData.docs.map(product => ({
-        ...product.data(),
-        createdAt: company.createTime.toDate(),
-        updatedAt: company.updateTime.toDate()
-      }))
+        .find([{
+          field: 'source',
+          operator: '==',
+          value: company.handle
+        }])
     }
   }
 }
